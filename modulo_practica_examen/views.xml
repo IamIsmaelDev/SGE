@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="prenda_action" model="ir.actions.act_window">
+		<field name="name">Prendas</field>
+		<field name="res_model">prenda</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="cliente_action" model="ir.actions.act_window">
+		<field name="name">Cliente</field>
+		<field name="res_model">cliente</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="vendedor_action" model="ir.actions.act_window">
+		<field name="name">Vendedor</field>
+		<field name="res_model">vendedor</field>
+		<field name="view_mode">tree,form,calendar</field>
+	</record>
+
+	<record id="compra_action" model="ir.actions.act_window">
+		<field name="name">Compra</field>
+		<field name="res_model">compra</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+    <record id="view_prenda_tree" model="ir.ui.view" >
+		<field name="name">prenda.tree</field>
+		<field name="model">prenda</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="id"/>
+				<field name="nombre"/>
+				<field name="talla"/>
+			</tree>
+		</field>
+	</record>
+
+    <record id="view_prenda_form" model="ir.ui.view">
+		<field name="name">prenda.form</field>
+		<field name="model">prenda</field>
+		<field name="arch" type="xml">
+			<form string="prenda">
+				<sheet>
+					<group>
+						<field name="id"/>
+						<field name="nombre"/>
+						<field name="talla"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_cliente_tree" model="ir.ui.view" >
+		<field name="name">cliente.tree</field>
+		<field name="model">cliente</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="id"/>
+				<field name="nombre"/>
+				<field name="apellido"/>
+				<field name="edad"/>
+				<field name="dni"/>
+				<field name="telefono"/>
+				<field name="direccion"/>
+			</tree>
+		</field>
+	</record>
+
+    <record id="view_cliente_form" model="ir.ui.view">
+		<field name="name">cliente.form</field>
+		<field name="model">cliente</field>
+		<field name="arch" type="xml">
+			<form string="cliente">
+				<sheet>
+					<group>
+						<field name="id"/>
+						<field name="nombre"/>
+						<field name="apellido"/>
+						<field name="edad"/>
+						<field name="dni"/>
+						<field name="telefono"/>
+						<field name="direccion"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_vendedor_tree" model="ir.ui.view" >
+		<field name="name">vendedor.tree</field>
+		<field name="model">vendedor</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="id"/>
+				<field name="nombre"/>
+				<field name="apellido"/>
+				<field name="edad"/>
+				<field name="dni"/>
+				<field name="telefono"/>
+				<field name="direccion"/>
+				<field name="fecha_inicio"/>
+				<field name="fecha_fin"/>
+				<field name="prenda"/>
+			</tree>
+		</field>
+	</record>
+
+    <record id="view_vendedor_form" model="ir.ui.view">
+		<field name="name">vendedor.form</field>
+		<field name="model">vendedor</field>
+		<field name="arch" type="xml">
+			<form string="vendedor">
+				<sheet>
+					<group>
+						<field name="id"/>
+						<field name="nombre"/>
+						<field name="apellido"/>
+						<field name="edad"/>
+						<field name="dni"/>
+						<field name="telefono"/>
+						<field name="direccion"/>
+						<field name="fecha_inicio"/>
+						<field name="fecha_fin"/>
+						<field name="prenda"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_vendedor_calendar" model="ir.ui.view" >
+		<field name="name">vendedor.calendar</field>
+		<field name="model">vendedor</field>
+		<field name="arch" type="xml">
+			<calendar string="vendedor" date_start="fecha_inicio" date_stop="fecha_fin">
+				<field name="nombre"/>
+				<field name="apellido"/>
+			</calendar>
+		</field>
+	</record>
+
+	<record id="vendedor_search" model="ir.ui.view">
+		<field name="name">vendedor.search</field>
+		<field name="model">vendedor</field>
+		<field name="arch" type="xml">
+			<search string="vendedor">
+				<field name="nombre" />
+				<field name="apellido" />
+				<field name="fecha_inicio" />
+				<filter name="baja" string="baja" domain="[('fecha_fin', '&lt;', datetime.date.today())]"  />
+				<group string="Zona de agrupamientos">
+					<filter name="agrupar por nombre"
+							string="agrupar por nombre"
+							context="{'group_by':'nombre'}"/>
+					<filter name="agrupar por apellido"
+							string="agrupar por apellido"
+							context="{'group_by':'apellido'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="view_commpra_tree" model="ir.ui.view" >
+		<field name="name">compra.tree</field>
+		<field name="model">compra</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="id"/>
+				<field name="fecha"/>
+				<field name="cliente"/>
+				<field name="prenda"/>
+				<field name="vendedor"/>
+				<field name="precio_inicial"/>
+				<field name="precio_final"/>
+				<field name="rebaja"/>
+			</tree>
+		</field>
+	</record>
+
+    <record id="view_compra_form" model="ir.ui.view">
+		<field name="name">compra.form</field>
+		<field name="model">compra</field>
+		<field name="arch" type="xml">
+			<form string="compra">
+				<sheet>
+					<group>
+						<field name="id"/>
+						<field name="fecha"/>
+						<field name="cliente"/>
+						<field name="prenda"/>
+						<field name="vendedor"/>
+						<field name="precio_inicial"/>
+						<field name="precio_final"/>
+						<field name="rebaja"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+
+    <menuitem
+        id="vinted"
+        name="vinted"
+    />
+
+    <menuitem
+        id="prendas"
+        name="prendas"
+        parent="vinted"
+        action="prenda_action"
+    />
+
+	<menuitem
+		id="clientes"
+		name="clientes"
+		parent="vinted"
+		action="cliente_action"
+	/>
+
+	<menuitem
+		id="vendedores"
+		name="vendedores"
+		parent="vinted"
+		action="vendedor_action"
+	/>
+
+	<menuitem
+		id="compras"
+		name="compras"
+		parent="vinted"
+		action="compra_action"
+	/>
+</odoo>
